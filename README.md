@@ -8,6 +8,7 @@
 
 
 ## 파일
+.
 +-- src/main/java
 |+-- main/service
 ||+--NoticeVo.java
