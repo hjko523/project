@@ -8,5 +8,5 @@
 
 
 ## 파일
-+ [Controller](./src/main/java/
++ [Controller](/src/main/java/)
    
