@@ -8,5 +8,5 @@
 
 
 ## 파일
-+ [Controller](/src/main/java/main/web/SeraController)
++ [Controller](#SeraController.java)
    
