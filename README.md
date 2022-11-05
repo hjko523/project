@@ -8,5 +8,7 @@
 
 
 ## 파일
-+ [Controller](./SeraController.java)
++-- src/main/java
+|+-- main/service
+||+--NoticeVo.java
    
