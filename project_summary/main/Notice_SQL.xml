@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="NoticeSpace">
+
+	<typeAlias  alias="egovMap" type="egovframework.rte.psl.dataaccess.util.EgovMap"/>
+	<typeAlias  alias="noticeVO" type="main.service.NoticeVO"/>
+
+
+	<!-- 등록하기 -->
+	<insert id="noticeDAO.insertNotice">
+		INSERT INTO board (	unq,
+							title,
+							content,
+							hits,
+							rdate
+							)
+							
+				VALUES (	board_seq.nextval,
+							#title#,
+							#content#,
+							0,
+							sysdate )
+				
+	
+	</insert>
+	
+	<!-- 게시판 / 번호, 제목, 등록일, 조회수-->
+	<select id="noticeDAO.selectNoticeList" resultClass="egovMap">	
+		
+			SELECT b.* FROM  (
+				SELECT rownum rn, a.* FROM (
+					SELECT  unq,
+							title,							
+							hits,
+							to_char(rdate,'yyyy-mm-dd') as rdate 
+					FROM 	
+							board 
+				<isNotNull property="searchGubun"> 
+					<isNotNull property="searchText">
+							WHERE $searchGubun$ like '%$searchText$%'
+					</isNotNull>
+				</isNotNull>	
+					ORDER BY unq DESC ) a )b
+					
+			WHERE				
+			<![CDATA[	rn >= #startIndex# and rn <= #endIndex#	]]>		
+			
+	</select>
+			
+		
+	<!-- 페이지 --> 	
+	<select id="noticeDAO.selectNoticeTotal" resultClass="java.lang.Integer">
+	
+		SELECT COUNT(*) total FROM board
+			<isNotNull property="searchGubun"> 
+				<isNotNull property="searchText">
+						WHERE $searchGubun$ like '%$searchText$%'
+				</isNotNull>
+			</isNotNull>
+	
+	</select>
+	
+	
+	<!-- 상세화면 -->  <!-- $를 쓸때 '를 붙여주어야 한다. 대신 콘솔에 변수명이 보인다는 사실-->
+	<select id="noticeDAO.selectNoticeDetail" resultClass="noticeVO">
+
+		SELECT  unq,title,content,
+				to_char(rdate,'yyyy-mm-dd') rdate,
+				hits
+		FROM 	
+				board
+		WHERE 	
+				unq=#unq#
+
+	</select>
+	
+	<!-- 조회수증가 -->
+	<update id="noticeDAO.updateNoticeHits">
+	
+		UPDATE board SET hits=hits+1 WHERE unq=#unq#
+		
+	</update>
+	
+	<!-- 수정처리 -->
+	<update id="noticeDAO.updateNotice">
+	
+	 	UPDATE	board 
+	 	SET	
+	 			title = #title#,
+			 	content = #content#
+	 	WHERE
+	 			unq = #unq#
+	 </update>
+	 
+	 <!-- 삭제하기 -->
+	<delete id="noticeDAO.deleteNotice">
+		DELETE FROM board
+			WHERE unq=#unq#
+	</delete>
+	
+	<!-- 암호확인 -->
+	<select id="noticeDAO.selectPass" resultClass="java.lang.Integer">
+	
+	  SELECT COUNT(*) FROM login WHERE name=#name# AND pass=#pass#
+	
+	</select>	
+	
+		
+</sqlMap>
