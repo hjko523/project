@@ -1,4 +1,4 @@
-## project 카페 '세라' 
+# project 카페 '세라' 
 
 
 
@@ -14,7 +14,7 @@
   
   
 ### 페이지 구성
-+ Home / Menu / Membership / Notice / Location
+#### Home / Menu / Membership / Notice / Location
 
 
 > **Notice**
