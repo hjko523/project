@@ -9,8 +9,8 @@
   
 
 ### 기능
-+ 프레임워크 / 서버 : 전자정부프레임워크 3.10 / Apache Tomcat 8.5
-+ 언어 : JAVA, Javascript, JSP, HTML, CSS, Oracle
++ **프레임워크 / 서버** : 전자정부프레임워크 3.10 / Apache Tomcat 8.5
++ **언어** : JAVA, Javascript, JSP, HTML, CSS, Oracle
   
   
 ### 페이지 구성
